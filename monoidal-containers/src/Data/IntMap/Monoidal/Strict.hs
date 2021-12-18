@@ -154,6 +154,9 @@ import Data.Align
 import Data.Semialign (Unalign)
 #if MIN_VERSION_semialign(1,1,0)
 import Data.Zip (Zip)
+import Data.Functor.WithIndex
+import Data.Foldable.WithIndex
+import Data.Traversable.WithIndex
 #endif
 #endif
 
@@ -609,3 +612,8 @@ maxViewWithKey :: forall a. MonoidalIntMap a -> Maybe ((Int, a), MonoidalIntMap 
 maxViewWithKey = coerce (M.maxViewWithKey :: M.IntMap a -> Maybe ((Int, a), M.IntMap a))
 {-# INLINE maxViewWithKey #-}
 
+instance FunctorWithIndex Int MonoidalIntMap 
+instance FoldableWithIndex Int MonoidalIntMap
+instance TraversableWithIndex Int MonoidalIntMap where
+    itraverse f (MonoidalIntMap m) = fmap MonoidalIntMap $ itraverse f m
+    {-# INLINE itraverse #-}

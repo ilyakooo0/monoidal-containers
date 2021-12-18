@@ -21,12 +21,6 @@ instance Ord k => At (MonoidalMap k a) where
 
 instance Each (MonoidalMap k a) (MonoidalMap k b) a b
 
-instance FunctorWithIndex k (MonoidalMap k)
-instance FoldableWithIndex k (MonoidalMap k)
-instance TraversableWithIndex k (MonoidalMap k) where
-    itraverse f (MonoidalMap m) = fmap MonoidalMap $ itraverse f m
-    {-# INLINE itraverse #-}
-
 instance Ord k => TraverseMin k (MonoidalMap k) where
     traverseMin f (MonoidalMap m) = fmap MonoidalMap $ traverseMin f m
     {-# INLINE traverseMin #-}

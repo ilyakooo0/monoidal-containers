@@ -154,6 +154,9 @@ import Data.Align
 import Data.Semialign (Unalign)
 #if MIN_VERSION_semialign(1,1,0)
 import Data.Zip (Zip)
+import Data.Functor.WithIndex
+import Data.Foldable.WithIndex
+import Data.Traversable.WithIndex
 #endif
 #endif
 
@@ -661,4 +664,8 @@ valid :: forall k a. Ord k => MonoidalMap k a -> Bool
 valid = coerce (M.valid :: Ord k => M.Map k a -> Bool)
 {-# INLINE valid #-}
 
-
+instance FunctorWithIndex k (MonoidalMap k)
+instance FoldableWithIndex k (MonoidalMap k)
+instance TraversableWithIndex k (MonoidalMap k) where
+    itraverse f (MonoidalMap m) = fmap MonoidalMap $ itraverse f m
+    {-# INLINE itraverse #-}

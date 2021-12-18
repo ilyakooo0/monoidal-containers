@@ -21,12 +21,6 @@ instance At (MonoidalIntMap a) where
 
 instance Each (MonoidalIntMap a) (MonoidalIntMap b) a b
 
-instance FunctorWithIndex Int MonoidalIntMap 
-instance FoldableWithIndex Int MonoidalIntMap
-instance TraversableWithIndex Int MonoidalIntMap where
-    itraverse f (MonoidalIntMap m) = fmap MonoidalIntMap $ itraverse f m
-    {-# INLINE itraverse #-}
-
 instance TraverseMin Int MonoidalIntMap  where
     traverseMin f (MonoidalIntMap m) = fmap MonoidalIntMap $ traverseMin f m
     {-# INLINE traverseMin #-}
